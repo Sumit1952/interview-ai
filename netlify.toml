@@ -1,13 +1,9 @@
 [build]
-  base      = "Frontend"
-  command   = "npm run build"
-  publish   = "dist"
+  command = "cd Frontend && npm install && npm run build"
+  publish = "Frontend/dist"
 
 [build.environment]
-  VITE_API_URL                      = "https://interview-ai-ktwb.onrender.com"
-  PUPPETEER_SKIP_CHROMIUM_DOWNLOAD  = "true"
-  PUPPETEER_SKIP_DOWNLOAD           = "true"
-  NPM_FLAGS                         = "--ignore-scripts"
+  VITE_API_URL = "https://interview-ai-ktwb.onrender.com"
 
 [[redirects]]
   from   = "/*"
