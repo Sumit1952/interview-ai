@@ -7,6 +7,26 @@ const ai = new GoogleGenAI({
     apiKey: process.env.GOOGLE_GENAI_API_KEY
 })
 
+const GEMINI_MODEL = "gemini-2.0-flash"
+
+// Retry wrapper — handles 503 overload with exponential backoff
+async function withRetry(fn, retries = 3, delayMs = 2000) {
+    for (let i = 0; i < retries; i++) {
+        try {
+            return await fn()
+        } catch (err) {
+            const is503 = err?.status === 503 || err?.message?.includes("503") || err?.message?.includes("UNAVAILABLE")
+            if (is503 && i < retries - 1) {
+                console.log(`Gemini 503 overload — retrying in ${delayMs}ms (attempt ${i + 1}/${retries})`)
+                await new Promise(r => setTimeout(r, delayMs))
+                delayMs *= 2
+            } else {
+                throw err
+            }
+        }
+    }
+}
+
 
 const interviewReportSchema = z.object({
     matchScore: z.number().describe("A score between 0 and 100 indicating how well the candidate's profile matches the job describe"),
@@ -41,14 +61,14 @@ async function generateInterviewReport({ resume, selfDescription, jobDescription
                         Job Description: ${jobDescription}
 `
 
-    const response = await ai.models.generateContent({
-        model: "gemini-3-flash-preview",
+    const response = await withRetry(() => ai.models.generateContent({
+        model: GEMINI_MODEL,
         contents: prompt,
         config: {
             responseMimeType: "application/json",
             responseSchema: zodToJsonSchema(interviewReportSchema),
         }
-    })
+    }))
 
     return JSON.parse(response.text)
 
@@ -97,14 +117,14 @@ async function generateResumePdf({ resume, selfDescription, jobDescription }) {
                         The resume should not be so lengthy, it should ideally be 1-2 pages long when converted to PDF. Focus on quality rather than quantity and make sure to include all the relevant information that can increase the candidate's chances of getting an interview call for the given job description.
                     `
 
-    const response = await ai.models.generateContent({
-        model: "gemini-3-flash-preview",
+    const response = await withRetry(() => ai.models.generateContent({
+        model: GEMINI_MODEL,
         contents: prompt,
         config: {
             responseMimeType: "application/json",
             responseSchema: zodToJsonSchema(resumePdfSchema),
         }
-    })
+    }))
 
 
     const jsonContent = JSON.parse(response.text)
