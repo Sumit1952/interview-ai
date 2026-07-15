@@ -6,11 +6,21 @@ const app = express()
 
 app.use(express.json())
 app.use(cookieParser())
+const allowedOrigins = [
+  "http://localhost:5173",
+  "https://interview-resume-ai.netlify.app",
+  /\.replit\.dev$/,
+  /\.repl\.co$/,
+]
+
 app.use(cors({
-  origin: [
-    "http://localhost:5173",
-    "https://interview-resume-ai.netlify.app"
-  ],
+  origin: (origin, callback) => {
+    if (!origin) return callback(null, true)
+    const allowed = allowedOrigins.some(o =>
+      typeof o === "string" ? o === origin : o.test(origin)
+    )
+    callback(null, allowed)
+  },
   credentials: true
 }));
 /* require all the routes here */
