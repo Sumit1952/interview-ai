@@ -1,0 +1,71 @@
+4:38:48 PM: Netlify Build                                                 
+4:38:48 PM: ────────────────────────────────────────────────────────────────
+4:38:48 PM: ​
+4:38:48 PM: ❯ Version
+4:38:48 PM:   @netlify/build 36.1.5
+4:38:48 PM: ​
+4:38:48 PM: ❯ Flags
+4:38:48 PM:   accountId: 693c2a49e1ce7a0e87b2561c
+4:38:48 PM:   baseRelDir: true
+4:38:48 PM:   buildId: 6a576a38df56df000824fe07
+4:38:48 PM:   deployId: 6a576a38df56df000824fe09
+4:38:48 PM: ​
+4:38:48 PM: ❯ Current directory
+4:38:48 PM:   /opt/build/repo
+4:38:48 PM: ​
+4:38:48 PM: ❯ Config file
+4:38:48 PM:   /opt/build/repo/netlify.toml
+4:38:48 PM: ​
+4:38:48 PM: ❯ Context
+4:38:48 PM:   production
+4:38:48 PM: ​
+4:38:48 PM: ❯ Installing extensions
+4:38:48 PM:    - neon
+4:39:01 PM: ​
+4:39:01 PM: ❯ Loading extensions
+4:39:01 PM:    - neon
+4:39:02 PM: ​
+4:39:02 PM: build.command from netlify.toml                               
+4:39:02 PM: ────────────────────────────────────────────────────────────────
+4:39:02 PM: ​
+4:39:02 PM: $ npm run build
+4:39:02 PM: npm error Missing script: "build"
+4:39:02 PM: npm error
+4:39:02 PM: npm error To see a list of scripts, run:
+4:39:02 PM: npm error   npm run
+4:39:02 PM: npm error A complete log of this run can be found in: /opt/buildhome/.npm/_logs/2026-07-15T11_09_02_796Z-debug-0.log
+4:39:03 PM: Failed during stage 'building site': Build script returned non-zero exit code: 2 (https://ntl.fyi/exit-code-2)
+4:39:03 PM: ​
+4:39:03 PM: "build.command" failed                                        
+4:39:03 PM: ────────────────────────────────────────────────────────────────
+4:39:03 PM: ​
+4:39:03 PM:   Error message
+4:39:03 PM:   Command failed with exit code 1: npm run build (https://ntl.fyi/exit-code-1)
+4:39:03 PM: ​
+4:39:03 PM:   Error location
+4:39:03 PM:   In build.command from netlify.toml:
+4:39:03 PM:   npm run build
+4:39:03 PM: ​
+4:39:03 PM:   Resolved config
+4:39:03 PM:   build:
+4:39:03 PM:     base: /opt/build/repo
+4:39:03 PM:     command: npm run build
+4:39:03 PM:     commandOrigin: config
+4:39:03 PM:     environment:
+4:39:03 PM:       - GOOGLE_GENAI_API_KEY
+4:39:03 PM:       - JWT_SECRET
+4:39:03 PM:       - MONGO_URI
+4:39:03 PM:       - VITE_API_URL
+4:39:03 PM:       - PUPPETEER_SKIP_CHROMIUM_DOWNLOAD
+4:39:03 PM:       - PUPPETEER_SKIP_DOWNLOAD
+4:39:03 PM:       - NPM_FLAGS
+4:39:03 PM:     publish: /opt/build/repo/dist
+4:39:03 PM:     publishOrigin: config
+4:39:03 PM:   redirects:
+4:39:03 PM:     - from: /*
+4:39:03 PM:       status: 200
+4:39:03 PM:       to: /index.html
+4:39:03 PM:   redirectsOrigin: config
+4:39:03 PM: Build failed due to a user error: Build script returned non-zero exit code: 2
+4:39:03 PM: Failing build: Failed to build site
+4:39:04 PM: Finished processing build request in 22.327s
