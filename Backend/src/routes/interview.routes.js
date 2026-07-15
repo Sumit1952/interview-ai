@@ -5,14 +5,20 @@ const upload = require("../middlewares/file.middleware")
 
 const interviewRouter = express.Router()
 
-
+// Multer error handler — must be defined as a named function so Express recognises it as error middleware
+function handleUploadError(err, req, res, next) {
+    if (err) {
+        return res.status(400).json({ message: err.message || "File upload failed." })
+    }
+    next()
+}
 
 /**
  * @route POST /api/interview/
  * @description generate new interview report on the basis of user self description,resume pdf and job description.
  * @access private
  */
-interviewRouter.post("/", authMiddleware.authUser, upload.single("resume"), interviewController.generateInterViewReportController)
+interviewRouter.post("/", authMiddleware.authUser, upload.single("resume"), handleUploadError, interviewController.generateInterViewReportController)
 
 /**
  * @route GET /api/interview/report/:interviewId
