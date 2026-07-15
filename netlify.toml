@@ -4,7 +4,10 @@
   publish   = "dist"
 
 [build.environment]
-  VITE_API_URL = "https://interview-ai-ktwb.onrender.com"
+  VITE_API_URL                      = "https://interview-ai-ktwb.onrender.com"
+  PUPPETEER_SKIP_CHROMIUM_DOWNLOAD  = "true"
+  PUPPETEER_SKIP_DOWNLOAD           = "true"
+  NPM_FLAGS                         = "--ignore-scripts"
 
 [[redirects]]
   from   = "/*"
